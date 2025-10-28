@@ -13,6 +13,7 @@ const state = {
         speechKey: '',
         speakerProfileId: '',
         language: 'en-US',
+        voiceName: 'DragonLatestNeural',
         agentEndpoint: '',
         entraToken: '',
         agentId: ''
@@ -69,6 +70,7 @@ function loadConfigFromStorage() {
             document.getElementById('speechKey').value = state.config.speechKey || '';
             document.getElementById('speakerProfileId').value = state.config.speakerProfileId || '';
             document.getElementById('language').value = state.config.language || 'en-US';
+            document.getElementById('voiceName').value = state.config.voiceName || 'DragonLatestNeural';
             document.getElementById('agentEndpoint').value = state.config.agentEndpoint || '';
             document.getElementById('entraToken').value = state.config.entraToken || '';
             document.getElementById('agentId').value = state.config.agentId || '';
@@ -183,6 +185,7 @@ function captureConfiguration() {
     state.config.speechKey = document.getElementById('speechKey').value.trim();
     state.config.speakerProfileId = document.getElementById('speakerProfileId').value.trim();
     state.config.language = document.getElementById('language').value.trim() || 'en-US';
+    state.config.voiceName = document.getElementById('voiceName').value.trim() || 'DragonLatestNeural';
     state.config.agentEndpoint = document.getElementById('agentEndpoint').value.trim();
     state.config.entraToken = document.getElementById('entraToken').value.trim();
     state.config.agentId = document.getElementById('agentId').value.trim();
@@ -398,12 +401,12 @@ async function synthesizeSpeech(text) {
         return;
     }
     
-    const { speakerProfileId, language } = state.config;
+    const { speakerProfileId, language, voiceName } = state.config;
     
     // Personal Voice用のSSML生成
     const ssml = `
-        <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${language}">
-            <voice name="${language === 'ja-JP' ? 'ja-JP-NanamiNeural' : 'en-US-JennyNeural'}">
+        <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xml:lang="${language}">
+            <voice name="${voiceName}">
                 <mstts:ttsembedding speakerProfileId="${speakerProfileId}">
                     ${text}
                 </mstts:ttsembedding>
@@ -411,7 +414,7 @@ async function synthesizeSpeech(text) {
         </speak>
     `;
     
-    console.log('SSML prepared for synthesis');
+    console.log('SSML prepared for synthesis with voice:', voiceName);
     
     return new Promise((resolve, reject) => {
         state.session.isSpeaking = true;
