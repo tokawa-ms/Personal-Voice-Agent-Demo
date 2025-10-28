@@ -1,193 +1,279 @@
-# 🚀 JavaScript Application Template with GitHub Copilot
+# 🎙️ Personal Voice Agent Demo
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/docs/Web/CSS)
 [![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/docs/Web/JavaScript)
 [![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Azure](https://img.shields.io/badge/Azure-0089D6?style=flat&logo=microsoft-azure&logoColor=white)](https://azure.microsoft.com/)
 
-> **GitHub Copilot** と **GitHub Coding Agent** を活用したモダンな JavaScript アプリケーション開発のためのテンプレートリポジトリ
+> An interactive AI agent demo combining **Azure Personal Voice** and **Azure AI Agent Service** for personalized voice conversations
 
-## 📋 概要
+## 📋 Overview
 
-このリポジトリは、AI 駆動開発ツールを使用して効率的な JavaScript アプリケーション開発を実現するための包括的なテンプレートです。最新の Web 技術スタックと開発手法を組み合わせ、迅速なプロトタイピングから本格的なアプリケーション開発まで対応します。
+This application demonstrates the integration of Azure's Personal Voice technology with AI Agent Service, creating an interactive conversational agent with personalized voice responses. Users can communicate via text or voice, and receive responses in a customized voice powered by Azure Personal Voice.
 
-### ✨ 主な特徴
+### ✨ Key Features
 
-- 🤖 **AI ファーストな開発体験** - GitHub Copilot & Coding Agent 完全対応
-- ⚡ **ゼロ設定で即座に開始** - ブラウザで直接実行可能
-- 🎨 **モダンな UI/UX** - Tailwind CSS による美しいデザイン
-- 📱 **レスポンシブデザイン** - あらゆるデバイスに対応
-- 🛠️ **開発者フレンドリー** - 明確なコーディング規約とベストプラクティス
+- 🎤 **Voice Interaction** - Speech-to-Text for natural voice input
+- 🔊 **Personal Voice** - Text-to-Speech with custom voice profiles
+- 🤖 **AI Agent Integration** - Powered by Azure AI Foundry Agent Service
+- 🖼️ **Customizable Avatar** - Upload custom images for agent visualization
+- 💾 **Persistent Settings** - Browser storage for configuration and images
+- 📱 **Responsive Design** - Works seamlessly across devices
+- ⚡ **Zero Installation** - Run directly in your browser
 
-## 🛠️ 技術スタック
+## 🛠️ Technology Stack
 
-### フロントエンド
+### Frontend
+| Technology | Version | Purpose |
+|------------|---------|---------|
+| HTML5 | Latest | Semantic markup |
+| CSS3 | Latest | Styling |
+| [Tailwind CSS](https://tailwindcss.com/) | 3.x (CDN) | Utility-first CSS framework |
+| JavaScript | ES6+ | Interactive functionality |
 
-| 技術                                     | バージョン | 用途                         |
-| ---------------------------------------- | ---------- | ---------------------------- |
-| HTML5                                    | Latest     | セマンティックなマークアップ |
-| CSS3                                     | Latest     | スタイリング                 |
-| [Tailwind CSS](https://tailwindcss.com/) | 3.x (CDN)  | ユーティリティファースト CSS |
-| JavaScript                               | ES6+       | インタラクティブな機能       |
+### Azure Services
+| Service | Purpose |
+|---------|---------|
+| [Azure Speech Service](https://azure.microsoft.com/services/cognitive-services/speech-services/) | Speech-to-Text and Text-to-Speech |
+| [Azure Personal Voice](https://learn.microsoft.com/azure/ai-services/speech-service/personal-voice-overview) | Custom voice synthesis |
+| [Azure AI Foundry Agent Service](https://learn.microsoft.com/azure/ai-services/) | AI agent backend |
 
-### 開発ツール
+### External Dependencies
+- **Azure Speech SDK** - Loaded via CDN for speech recognition and synthesis
 
-- **GitHub Copilot** - AI ペアプログラミング
-- **GitHub Coding Agent** - 自動コード生成
-- **Visual Studio Code** - 推奨 IDE
-
-## 📁 プロジェクト構造
-
-```
-📦 JSApp-Template-001/
-├── 📄 README.md                 # プロジェクト概要
-├── 📄 .github/
-│   └── 📄 copilot-instructions.md  # Copilot 設定
-└── 📁 src/                      # アプリケーションソース
-    ├── 📄 index.html            # メインHTML
-    ├── 📁 css/                  # スタイルシート
-    │   └── 📄 styles.css        # カスタムCSS
-    ├── 📁 js/                   # JavaScript
-    │   └── 📄 script.js         # メインスクリプト
-    └── 📁 assets/               # 静的リソース
-        └── 📁 images/           # 画像ファイル
-```
-
-## 🚀 クイックスタート
-
-### 前提条件
-
-- 📌 モダンな Web ブラウザ (Chrome 90+, Firefox 88+, Safari 14+)
-- 📌 Visual Studio Code (推奨)
-- 📌 GitHub Copilot サブスクリプション
-
-### セットアップ手順
-
-#### 🤖 GitHub Coding Agent を使用する場合
-
-1. **リポジトリの作成**
-
-   ```bash
-   # このテンプレートから新しいリポジトリを作成
-   gh repo create my-js-app --template JSApp-Template-001
-   ```
-
-2. **Issue の作成と Coding Agent の起動**
-
-   - リポジトリに新しい Issue を作成
-   - 開発要件を詳細に記述
-   - `@copilot` で Coding Agent をアサイン
-
-3. **自動開発プロセス**
-
-   - Coding Agent が要件を分析
-   - 自動的にコードを生成
-   - Pull Request として提案
-
-4. **レビューとデプロイ**
-   - 生成されたコードをレビュー
-   - main ブランチにマージ
-   - GitHub Pages でライブデモを確認
-
-#### 💻 GitHub Copilot Agent Mode (ローカル開発) を使用する場合
-
-1. **リポジトリのクローン**
-
-   ```bash
-   git clone https://github.com/tokawa-ms/JSApp-Template-001.git
-   cd JSApp-Template-001
-   ```
-
-2. **開発環境の準備**
-
-   ```bash
-   # Visual Studio Code で開く
-   code .
-   ```
-
-3. **Copilot の設定**
-
-   - VS Code で GitHub Copilot 拡張機能を有効化
-   - Agent モードに切り替え
-   - チャットウィンドウを開く
-
-4. **開発開始**
-   - 自然言語でプロンプトを入力
-   - Copilot の提案を確認・適用
-   - ブラウザで `src/index.html` を開いて動作確認
-
-## 💡 使用例とサンプルプロンプト
-
-### 基本的なアプリケーション作成
+## 📁 Project Structure
 
 ```
-「ToDoリストアプリを作成してください。追加、削除、完了マークの機能を含めてください。」
+📦 Personal-Voice-Agent-Demo/
+├── 📄 README.md                    # Project overview
+├── 📄 LICENSE                      # MIT License
+├── 📁 .github/
+│   └── 📄 copilot-instructions.md # Copilot configuration
+├── 📁 docs/                        # Documentation
+│   ├── 📄 implementation-spec.md  # Technical specifications
+│   └── 📄 user-guide.md           # User guide
+└── 📁 src/                         # Application source
+    ├── 📄 index.html               # Main HTML file
+    ├── 📁 css/
+    │   └── 📄 styles.css           # Custom styles
+    ├── 📁 js/
+    │   └── 📄 script.js            # Main application logic
+    └── 📁 assets/
+        └── 📁 images/              # Image resources
 ```
 
-### インタラクティブな機能追加
+## 🚀 Quick Start
 
+### Prerequisites
+
+Before using this application, ensure you have:
+
+- 📌 A modern web browser (Chrome 90+, Firefox 88+, Safari 14+, Edge 90+)
+- 📌 Azure Speech Service resource with API key
+- 📌 Azure Personal Voice profile with Speaker Profile ID
+- 📌 Azure AI Foundry project with configured Agent
+- 📌 Entra ID authentication token
+
+### Setup Instructions
+
+#### 1. Clone the Repository
+
+```bash
+git clone https://github.com/tokawa-ms/Personal-Voice-Agent-Demo.git
+cd Personal-Voice-Agent-Demo
 ```
-「現在の天気情報を表示するウィジェットを追加してください。API キーは設定画面で入力できるようにしてください。」
+
+#### 2. Open the Application
+
+Simply open `src/index.html` in your web browser:
+
+```bash
+# On macOS
+open src/index.html
+
+# On Linux
+xdg-open src/index.html
+
+# On Windows
+start src/index.html
 ```
 
-### UI/UX の改善
+Or drag and drop the file into your browser window.
 
-```
-「Tailwind CSS を使用してダークモード対応のモダンなデザインに変更してください。」
-```
+#### 3. Configure Azure Services
 
-## 📱 レスポンシブデザイン対応
+When the application opens, you'll see a configuration panel. Enter your Azure service credentials:
 
-このテンプレートは以下の画面サイズに最適化されています：
+1. **Speech Service Region** (e.g., `eastus`, `japaneast`)
+2. **Speech Service Key**
+3. **Personal Voice Speaker Profile ID**
+4. **Language** (e.g., `en-US`, `ja-JP`)
+5. **AI Foundry Project Endpoint**
+6. **Entra ID Token**
+7. **Agent ID**
 
-- 📱 **モバイル**: 320px〜768px
-- 📊 **タブレット**: 768px〜1024px
-- 💻 **デスクトップ**: 1024px 以上
+#### 4. Test Connection
 
-## 🔒 セキュリティとベストプラクティス
+Click **Test Connection** to verify your settings, then **Save & Close**.
 
-### API キーの取り扱い
+#### 5. Start Chatting
 
-- ✅ 環境変数や UI 入力フィールドを使用
-- ❌ ハードコーディングは禁止
-- 🔐 開発用のテストキーのみ使用
+You're ready to interact with your personal voice agent!
 
-### コード品質
+## 💡 Usage Examples
 
-- 📋 ESLint ルールに準拠
-- 📝 適切なコメント記述
-- 🧪 エラーハンドリングの実装
+### Text Interaction
 
-## 🤝 コントリビューション
+1. Type your message in the input box
+2. Click **Send** or press **Enter**
+3. The agent will respond and speak using Personal Voice
 
-プロジェクトへの貢献を歓迎します！
+### Voice Interaction
 
-1. このリポジトリをフォーク
-2. フィーチャーブランチを作成 (`git checkout -b feature/amazing-feature`)
-3. 変更をコミット (`git commit -m 'Add amazing feature'`)
-4. ブランチにプッシュ (`git push origin feature/amazing-feature`)
-5. Pull Request を作成
+1. Click the **microphone icon** to start voice recognition
+2. Speak your message
+3. The system will automatically recognize and send your message
+4. The agent will respond with synthesized speech
 
-## 📄 ライセンス
+### Customizing the Avatar
 
-このプロジェクトは [MIT License](LICENSE) の下で公開されています。
+1. Upload a background image for the agent display
+2. Upload an avatar image for visual customization
+3. Images are saved in browser storage for future sessions
 
-## 🆘 サポートとリソース
+### Managing Sessions
 
-- 📖 **ドキュメント**: [GitHub Copilot Docs](https://docs.github.com/en/copilot)
-- 💬 **コミュニティ**: [GitHub Discussions](https://github.com/github/copilot-docs/discussions)
-- 🐛 **Issue 報告**: [Issues](https://github.com/tokawa-ms/JSApp-Template-001/issues)
+Click **Clear Session** to reset the conversation and start fresh with a new thread.
 
-## 📊 プロジェクト統計
+## 📱 Responsive Design
 
-![GitHub stars](https://img.shields.io/github/stars/tokawa-ms/JSApp-Template-001?style=social)
-![GitHub forks](https://img.shields.io/github/forks/tokawa-ms/JSApp-Template-001?style=social)
-![GitHub issues](https://img.shields.io/github/issues/tokawa-ms/JSApp-Template-001)
+This application is fully responsive and optimized for:
+
+- 📱 **Mobile**: 320px〜768px
+- 📊 **Tablet**: 768px〜1024px
+- 💻 **Desktop**: 1024px and above
+
+## 🔒 Security and Privacy
+
+### API Key Management
+
+- ✅ Configure via UI input fields
+- ✅ Stored in browser local storage (for demo purposes)
+- ❌ Never hardcoded in source
+- 🔐 Use short-lived tokens for production
+
+### Data Storage
+
+- Configuration and images stored locally in browser
+- No conversation history is persisted
+- All data stays on your device
+
+### Production Recommendations
+
+For production use:
+- Implement secure backend for credential management
+- Use OAuth/OpenID Connect for authentication
+- Implement proper CORS policies
+- Use environment-specific configurations
+
+## 📖 Documentation
+
+Detailed documentation is available in the `docs/` directory:
+
+- **[User Guide](docs/user-guide.md)** - Step-by-step instructions for using the application
+- **[Implementation Specification](docs/implementation-spec.md)** - Technical details and architecture
+
+## 🎯 Features in Detail
+
+### Configuration Panel
+
+- **Auto-save**: Settings are automatically saved to browser storage
+- **Auto-connect**: Saved settings are loaded and tested on startup
+- **Validation**: Connection testing before use
+
+### Avatar Display
+
+- **Default Icon**: Shows when no images are uploaded
+- **Background Layer**: Customizable background image
+- **Avatar Layer**: Overlay avatar image
+- **Persistence**: Images saved across sessions
+
+### Chat Interface
+
+- **Rich Messages**: Visual distinction between user and agent messages
+- **Status Indicators**: Real-time feedback on system state
+- **Auto-scroll**: Automatically scrolls to latest message
+- **Keyboard Support**: Enter to send, Esc to stop recording
+
+### Voice Features
+
+- **Continuous Recognition**: Natural speaking without button presses
+- **Auto-send**: Recognized text automatically sent to agent
+- **Personal Voice**: Custom voice synthesis from your voice profile
+- **Multi-language**: Supports multiple languages (en-US, ja-JP, etc.)
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Problem**: Microphone doesn't work  
+**Solution**: Check browser permissions and ensure HTTPS (for production)
+
+**Problem**: No sound output  
+**Solution**: Verify Speaker Profile ID and language settings match
+
+**Problem**: Agent doesn't respond  
+**Solution**: Check Entra ID token validity and Agent Service connectivity
+
+**Problem**: Configuration panel won't close  
+**Solution**: Ensure connection test passes or manually save settings
+
+See the [User Guide](docs/user-guide.md) for more troubleshooting tips.
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📄 License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## 🆘 Support and Resources
+
+### Azure Documentation
+
+- 📖 [Azure Speech Service Documentation](https://docs.microsoft.com/azure/cognitive-services/speech-service/)
+- 📖 [Personal Voice Overview](https://learn.microsoft.com/azure/ai-services/speech-service/personal-voice-overview)
+- 📖 [Azure AI Foundry Documentation](https://learn.microsoft.com/azure/ai-services/)
+
+### Application Documentation
+
+- 📖 [User Guide](docs/user-guide.md) - Complete user documentation
+- 📖 [Implementation Spec](docs/implementation-spec.md) - Technical specifications
+
+### Getting Help
+
+- 🐛 **Bug Reports**: [Issues](https://github.com/tokawa-ms/Personal-Voice-Agent-Demo/issues)
+- 💬 **Discussions**: [GitHub Discussions](https://github.com/tokawa-ms/Personal-Voice-Agent-Demo/discussions)
+
+## 🌟 Acknowledgments
+
+This application was developed using:
+- **GitHub Copilot** - AI-powered code completion
+- **Azure AI Services** - Cloud AI capabilities
+- **Tailwind CSS** - Utility-first CSS framework
 
 ---
 
 <div align="center">
-  <strong>🚀 Happy Coding with AI! 🤖</strong><br>
-  Made with ❤️ and GitHub Copilot
+  <strong>🎙️ Experience the Future of Voice AI! 🤖</strong><br>
+  Built with ❤️ using Azure AI and GitHub Copilot
 </div>
