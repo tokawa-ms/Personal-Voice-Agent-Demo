@@ -11,55 +11,89 @@
     <!-- Configuration Panel (Top) -->
     <div id="configPanel" class="bg-white shadow-lg p-6 mb-4">
         <div class="max-w-7xl mx-auto">
-            <h2 class="text-2xl font-bold mb-4 text-gray-800">Azure Services Configuration</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                <!-- Azure Speech Service Settings -->
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">Speech Service Region</label>
-                    <input type="text" id="speechRegion" placeholder="e.g., eastus" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <h2 class="text-2xl font-bold mb-6 text-gray-800">Azure Services Configuration</h2>
+            
+            <div class="space-y-6">
+                <!-- Speech Service Section -->
+                <div class="border-2 border-blue-200 rounded-lg p-5 bg-blue-50">
+                    <h3 class="text-lg font-semibold mb-4 text-blue-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                        </svg>
+                        Speech Service
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">Speech Service Region</label>
+                            <input type="text" id="speechRegion" placeholder="e.g., eastus" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">Speech Service Key</label>
+                            <input type="password" id="speechKey" placeholder="Your Speech Service API Key" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">Personal Voice Speaker Profile ID</label>
+                            <input type="text" id="speakerProfileId" placeholder="Speaker Profile ID" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">Language (e.g., en-US, ja-JP)</label>
+                            <input type="text" id="language" placeholder="e.g., en-US" value="en-US"
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">Personal Voice Model</label>
+                            <select id="voiceName" 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option value="DragonLatestNeural" selected>DragonLatestNeural</option>
+                                <option value="PhoenixLatestNeural">PhoenixLatestNeural</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">Speech Service Key</label>
-                    <input type="password" id="speechKey" placeholder="Your Speech Service API Key" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                <!-- AI Foundry Section -->
+                <div class="border-2 border-green-200 rounded-lg p-5 bg-green-50">
+                    <h3 class="text-lg font-semibold mb-4 text-green-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                        </svg>
+                        AI Foundry
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">AI Foundry Project Endpoint</label>
+                            <input type="text" id="agentEndpoint" placeholder="https://your-project.openai.azure.com" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">Agent ID</label>
+                            <input type="text" id="agentId" placeholder="Your Agent ID" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-green-500">
+                        </div>
+                    </div>
                 </div>
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">Personal Voice Speaker Profile ID</label>
-                    <input type="text" id="speakerProfileId" placeholder="Speaker Profile ID" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">Language (e.g., en-US, ja-JP)</label>
-                    <input type="text" id="language" placeholder="e.g., en-US" value="en-US"
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">Personal Voice Model</label>
-                    <select id="voiceName" 
-                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option value="DragonLatestNeural" selected>DragonLatestNeural</option>
-                        <option value="PhoenixLatestNeural">PhoenixLatestNeural</option>
-                    </select>
-                </div>
-                
-                <!-- Azure AI Foundry Agent Settings -->
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">AI Foundry Project Endpoint</label>
-                    <input type="text" id="agentEndpoint" placeholder="https://your-project.openai.azure.com" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">Entra ID Token</label>
-                    <input type="password" id="entraToken" placeholder="Bearer Token" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </div>
-                <div class="space-y-2">
-                    <label class="block text-sm font-medium text-gray-700">Agent ID</label>
-                    <input type="text" id="agentId" placeholder="Your Agent ID" 
-                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+
+                <!-- Entra ID Section -->
+                <div class="border-2 border-purple-200 rounded-lg p-5 bg-purple-50">
+                    <h3 class="text-lg font-semibold mb-4 text-purple-800 flex items-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                        </svg>
+                        Entra ID
+                    </h3>
+                    <div class="grid grid-cols-1 gap-4">
+                        <div class="space-y-2">
+                            <label class="block text-sm font-medium text-gray-700">Entra ID Token</label>
+                            <input type="password" id="entraToken" placeholder="Bearer Token" 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md bg-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        </div>
+                    </div>
                 </div>
             </div>
+
             <div class="mt-6 flex justify-end space-x-3">
                 <button id="testConnectionBtn" 
                         class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
