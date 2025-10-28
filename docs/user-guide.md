@@ -40,9 +40,10 @@ Fill in the following fields:
 2. **Speech Service Key**: Your Speech Service API key
 3. **Personal Voice Speaker Profile ID**: The ID of your Personal Voice profile
 4. **Language**: The language for speech recognition and synthesis (e.g., `en-US`, `ja-JP`, `en-GB`)
-5. **AI Foundry Project Endpoint**: Your AI Foundry project endpoint URL
-6. **Entra ID Token**: Your authentication bearer token
-7. **Agent ID**: Your Agent ID from AI Foundry
+5. **Personal Voice Model**: Select the voice model to use (`DragonLatestNeural` or `PhoenixLatestNeural`)
+6. **AI Foundry Project Endpoint**: Your AI Foundry project endpoint URL
+7. **Entra ID Token**: Your authentication bearer token
+8. **Agent ID**: Your Agent ID from AI Foundry
 
 ### Step 3: Test Connection
 
@@ -125,6 +126,7 @@ You will be asked to confirm before clearing.
 ### Personal Voice Quality
 
 - The quality of synthesized speech depends on your Personal Voice profile
+- Select the appropriate voice model (`DragonLatestNeural` or `PhoenixLatestNeural`) based on your preference
 - Different languages may have different voice characteristics
 - Ensure you select the correct language matching your Personal Voice profile
 
@@ -174,6 +176,7 @@ To reset everything:
 **Solution**:
 - Check your system volume
 - Ensure Speaker Profile ID is correctly configured
+- Verify the Personal Voice Model (DragonLatestNeural or PhoenixLatestNeural) is selected
 - Verify the language setting matches your Personal Voice profile
 - Check browser console for synthesis errors
 

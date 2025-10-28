@@ -44,6 +44,7 @@ Azure サービスへの接続情報を設定・管理する
 - **Speech Service Key**: API アクセスキー
 - **Personal Voice Speaker Profile ID**: 事前作成された Personal Voice のスピーカープロファイル ID
 - **Language**: 音声認識・合成の言語（例: en-US, ja-JP, en-GB）
+- **Personal Voice Model**: Personal Voice で使用する音声モデル（DragonLatestNeural または PhoenixLatestNeural）
 - **AI Foundry Project Endpoint**: Agent Service のエンドポイント URL
 - **Entra ID Token**: API 認証用のベアラートークン
 - **Agent ID**: 事前作成されたエージェントの ID
@@ -176,7 +177,7 @@ const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
 
 #### SSML フォーマット
 ```xml
-<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xml:lang="${language}">
+<speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xml:lang="${language}">
     <voice name="${voiceName}">
         <mstts:ttsembedding speakerProfileId="${speakerProfileId}">
             ${text}
@@ -185,10 +186,12 @@ const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
 </speak>
 ```
 
-#### 音声名のマッピング
-- `en-US`: en-US-JennyNeural
-- `ja-JP`: ja-JP-NanamiNeural
-- その他の言語も同様のパターンで指定可能
+#### 音声名の選択肢
+Personal Voice で利用可能な音声モデル：
+- `DragonLatestNeural`（既定値）
+- `PhoenixLatestNeural`
+
+これらは設定画面のドロップダウンで選択可能です。
 
 ### AI Foundry Agent Service
 
@@ -233,6 +236,7 @@ const state = {
         speechKey: '',
         speakerProfileId: '',
         language: 'en-US',
+        voiceName: 'DragonLatestNeural',
         agentEndpoint: '',
         entraToken: '',
         agentId: ''
