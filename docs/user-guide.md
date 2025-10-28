@@ -34,16 +34,27 @@ Open `src/index.html` in a modern web browser (Chrome, Edge, Firefox, or Safari)
 
 When you first open the application, you'll see the configuration panel at the top.
 
-Fill in the following fields:
+The configuration is organized into three sections for clarity:
+
+#### Speech Service Section (Blue)
+Contains all settings related to Azure Speech Service and Personal Voice:
 
 1. **Speech Service Region**: Your Azure Speech Service region (e.g., `eastus`)
 2. **Speech Service Key**: Your Speech Service API key
 3. **Personal Voice Speaker Profile ID**: The ID of your Personal Voice profile
 4. **Language**: The language for speech recognition and synthesis (e.g., `en-US`, `ja-JP`, `en-GB`)
 5. **Personal Voice Model**: Select the voice model to use (`DragonLatestNeural` or `PhoenixLatestNeural`)
+
+#### AI Foundry Section (Green)
+Contains settings for Azure AI Foundry Agent Service:
+
 6. **AI Foundry Project Endpoint**: Your AI Foundry project endpoint URL
-7. **Entra ID Token**: Your authentication bearer token
-8. **Agent ID**: Your Agent ID from AI Foundry
+7. **Agent ID**: Your Agent ID from AI Foundry
+
+#### Entra ID Section (Purple)
+Contains authentication settings:
+
+8. **Entra ID Token**: Your authentication bearer token
 
 ### Step 3: Test Connection
 
