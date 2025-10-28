@@ -391,6 +391,20 @@ function handleRecognizedText(text) {
 }
 
 /**
+ * XMLエスケープ関数
+ * SSMLインジェクション攻撃を防ぐため、特殊文字をエスケープ
+ */
+function escapeXml(text) {
+    if (!text) return '';
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
+}
+
+/**
  * Personal Voice での音声合成
  */
 async function synthesizeSpeech(text) {
@@ -403,12 +417,26 @@ async function synthesizeSpeech(text) {
     
     const { speakerProfileId, language, voiceName } = state.config;
     
+    // 必須パラメータのバリデーション
+    if (!speakerProfileId || !speakerProfileId.trim()) {
+        console.error('Speaker Profile ID is required for synthesis');
+        throw new Error('Speaker Profile ID is not configured');
+    }
+    
+    if (!voiceName || !voiceName.trim()) {
+        console.error('Voice Name is required for synthesis');
+        throw new Error('Voice Name is not configured');
+    }
+    
+    // テキストをXMLエスケープ
+    const escapedText = escapeXml(text);
+    
     // Personal Voice用のSSML生成
     const ssml = `
         <speak version="1.0" xmlns="http://www.w3.org/2001/10/synthesis" xmlns:mstts="http://www.w3.org/2001/mstts" xml:lang="${language}">
             <voice name="${voiceName}">
                 <mstts:ttsembedding speakerProfileId="${speakerProfileId}">
-                    ${text}
+                    ${escapedText}
                 </mstts:ttsembedding>
             </voice>
         </speak>
