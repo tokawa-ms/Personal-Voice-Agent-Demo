@@ -302,7 +302,7 @@ async function initializeSpeechService() {
     const speechConfig = speechSDK.SpeechConfig.fromSubscription(speechKey, speechRegion);
     speechConfig.speechRecognitionLanguage = language;
     
-    const audioConfig = speechSDK.AudioConfig.fromDefaultMicrophone();
+    const audioConfig = speechSDK.AudioConfig.fromDefaultMicrophoneInput();
     state.session.recognizer = new speechSDK.SpeechRecognizer(speechConfig, audioConfig);
     
     console.log('Speech Recognizer configured:', { language });
@@ -485,7 +485,7 @@ async function createNewThread() {
     const { agentEndpoint, entraToken } = state.config;
     
     try {
-        const response = await fetch(`${agentEndpoint}/threads`, {
+        const response = await fetch(`${agentEndpoint}/threads?api-version=2025-05-01`, {
             method: 'POST',
             headers: {
                 'Authorization': `Bearer ${entraToken}`,
@@ -495,6 +495,8 @@ async function createNewThread() {
         });
         
         if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Thread creation failed:', { status: response.status, statusText: response.statusText, body: errorText });
             throw new Error(`Failed to create thread: ${response.status} ${response.statusText}`);
         }
         
@@ -526,7 +528,7 @@ async function sendToAgent(message) {
         // メッセージをスレッドに追加
         console.log('Adding message to thread...');
         const messageResponse = await fetch(
-            `${agentEndpoint}/threads/${state.session.threadId}/messages`,
+            `${agentEndpoint}/threads/${state.session.threadId}/messages?api-version=2025-05-01`,
             {
                 method: 'POST',
                 headers: {
@@ -541,6 +543,8 @@ async function sendToAgent(message) {
         );
         
         if (!messageResponse.ok) {
+            const errorText = await messageResponse.text();
+            console.error('Message addition failed:', { status: messageResponse.status, statusText: messageResponse.statusText, body: errorText });
             throw new Error(`Failed to add message: ${messageResponse.status}`);
         }
         
@@ -549,7 +553,7 @@ async function sendToAgent(message) {
         // エージェントを実行
         console.log('Running agent...');
         const runResponse = await fetch(
-            `${agentEndpoint}/threads/${state.session.threadId}/runs`,
+            `${agentEndpoint}/threads/${state.session.threadId}/runs?api-version=2025-05-01`,
             {
                 method: 'POST',
                 headers: {
@@ -563,6 +567,8 @@ async function sendToAgent(message) {
         );
         
         if (!runResponse.ok) {
+            const errorText = await runResponse.text();
+            console.error('Agent run failed:', { status: runResponse.status, statusText: runResponse.statusText, body: errorText });
             throw new Error(`Failed to run agent: ${runResponse.status}`);
         }
         
@@ -596,13 +602,19 @@ async function waitForRunCompletion(runId, maxAttempts = 30) {
         await new Promise(resolve => setTimeout(resolve, 1000));
         
         const response = await fetch(
-            `${agentEndpoint}/threads/${state.session.threadId}/runs/${runId}`,
+            `${agentEndpoint}/threads/${state.session.threadId}/runs/${runId}?api-version=2025-05-01`,
             {
                 headers: {
                     'Authorization': `Bearer ${entraToken}`
                 }
             }
         );
+        
+        if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Run status check failed:', { status: response.status, statusText: response.statusText, body: errorText });
+            throw new Error(`Failed to check run status: ${response.status}`);
+        }
         
         const data = await response.json();
         console.log(`Run status check ${i + 1}/${maxAttempts}:`, data.status);
@@ -626,7 +638,7 @@ async function getAgentResponse() {
     const { agentEndpoint, entraToken } = state.config;
     
     const response = await fetch(
-        `${agentEndpoint}/threads/${state.session.threadId}/messages`,
+        `${agentEndpoint}/threads/${state.session.threadId}/messages?api-version=2025-05-01`,
         {
             headers: {
                 'Authorization': `Bearer ${entraToken}`
@@ -635,6 +647,8 @@ async function getAgentResponse() {
     );
     
     if (!response.ok) {
+        const errorText = await response.text();
+        console.error('Get messages failed:', { status: response.status, statusText: response.statusText, body: errorText });
         throw new Error(`Failed to get messages: ${response.status}`);
     }
     
