@@ -158,6 +158,7 @@ function setupEventListeners() {
     // 設定パネル
     document.getElementById('testConnectionBtn').addEventListener('click', () => testConnection(false));
     document.getElementById('saveConfigBtn').addEventListener('click', saveConfiguration);
+    document.getElementById('openConfigBtn').addEventListener('click', openConfigPanel);
     
     // 画像アップロード
     document.getElementById('backgroundUpload').addEventListener('change', handleBackgroundUpload);
@@ -254,6 +255,15 @@ function closeConfigPanel() {
     console.log('Closing configuration panel');
     const panel = document.getElementById('configPanel');
     panel.classList.add('hidden');
+}
+
+/**
+ * 設定パネルを開く
+ */
+function openConfigPanel() {
+    console.log('Opening configuration panel');
+    const panel = document.getElementById('configPanel');
+    panel.classList.remove('hidden');
 }
 
 // =============================================================================
@@ -385,6 +395,13 @@ function handleRecognizedText(text) {
     console.log('Handling recognized text:', text);
     if (text && text.trim()) {
         document.getElementById('messageInput').value = text;
+        
+        // マイクがオンの場合は停止（連続メッセージ送信を防止）
+        if (state.session.isRecording) {
+            console.log('Auto-stopping microphone after speech recognition');
+            toggleMicrophone();
+        }
+        
         // 自動送信
         sendMessage();
     }
