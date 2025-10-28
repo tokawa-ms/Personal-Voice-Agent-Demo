@@ -161,11 +161,13 @@ Personal Voiceで音声合成
 
 #### 設定
 ```javascript
-const speechConfig = SpeechSDK.SpeechConfig.fromSubscription(speechKey, speechRegion);
+const speechConfig = speechSDK.SpeechConfig.fromSubscription(speechKey, speechRegion);
 speechConfig.speechRecognitionLanguage = language;
-const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophone();
-const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+const audioConfig = speechSDK.AudioConfig.fromDefaultMicrophoneInput();
+const recognizer = new speechSDK.SpeechRecognizer(speechConfig, audioConfig);
 ```
+
+**注意**: `AudioConfig.fromDefaultMicrophoneInput()` メソッドを使用してデフォルトマイクを設定します。
 
 #### 使用モード
 - **Continuous Recognition**: 継続的な音声認識
@@ -197,29 +199,31 @@ Personal Voice で利用可能な音声モデル：
 
 #### API エンドポイント
 
+**重要**: すべての API 呼び出しには `api-version=2025-05-01` クエリパラメータが必要です。
+
 1. **スレッド作成**
    - メソッド: POST
-   - URL: `{endpoint}/threads`
+   - URL: `{endpoint}/threads?api-version=2025-05-01`
    - レスポンス: `{ id: "thread_id" }`
 
 2. **メッセージ追加**
    - メソッド: POST
-   - URL: `{endpoint}/threads/{threadId}/messages`
+   - URL: `{endpoint}/threads/{threadId}/messages?api-version=2025-05-01`
    - ボディ: `{ role: "user", content: "message" }`
 
 3. **エージェント実行**
    - メソッド: POST
-   - URL: `{endpoint}/threads/{threadId}/runs`
+   - URL: `{endpoint}/threads/{threadId}/runs?api-version=2025-05-01`
    - ボディ: `{ assistant_id: "agent_id" }`
 
 4. **実行ステータス確認**
    - メソッド: GET
-   - URL: `{endpoint}/threads/{threadId}/runs/{runId}`
+   - URL: `{endpoint}/threads/{threadId}/runs/{runId}?api-version=2025-05-01`
    - ステータス: queued, in_progress, completed, failed, cancelled
 
 5. **メッセージ取得**
    - メソッド: GET
-   - URL: `{endpoint}/threads/{threadId}/messages`
+   - URL: `{endpoint}/threads/{threadId}/messages?api-version=2025-05-01`
    - レスポンス: メッセージ配列（最新順）
 
 #### 認証
