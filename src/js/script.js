@@ -408,6 +408,29 @@ function handleRecognizedText(text) {
 }
 
 /**
+ * 括弧書きを削除する関数
+ * AI Agent Service の応答から括弧書き（【】や（））を削除して音声合成用のテキストを生成
+ * @param {string} text - 元のテキスト
+ * @returns {string} - 括弧書きを削除したテキスト
+ */
+function removeBracketedText(text) {
+    if (!text) return '';
+    
+    console.log('Removing bracketed text from:', text);
+    
+    // すべての種類の括弧を一度に削除（全角・半角の角括弧と丸括弧）
+    // 【】（）[] () を削除
+    let cleanedText = text.replace(/【[^】]*】|（[^）]*）|\[[^\]]*\]|\([^)]*\)/g, '');
+    
+    // 連続する空白を1つの空白に置換
+    cleanedText = cleanedText.replace(/\s+/g, ' ').trim();
+    
+    console.log('Text after removing brackets:', cleanedText);
+    
+    return cleanedText;
+}
+
+/**
  * XMLエスケープ関数
  * SSMLインジェクション攻撃を防ぐため、特殊文字をエスケープ
  */
@@ -445,8 +468,11 @@ async function synthesizeSpeech(text) {
         throw new Error('Voice Name is not configured');
     }
     
+    // 括弧書きを削除してから音声合成用のテキストを生成
+    const textWithoutBrackets = removeBracketedText(text);
+    
     // テキストをXMLエスケープ
-    const escapedText = escapeXml(text);
+    const escapedText = escapeXml(textWithoutBrackets);
     
     // Personal Voice用のSSML生成
     const ssml = `
