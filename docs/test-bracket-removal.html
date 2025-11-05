@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>括弧書き削除機能 - テストデモ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .test-result {
+            transition: all 0.3s ease;
+        }
+        .test-result.pass {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+        }
+        .test-result.fail {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold mb-6 text-gray-800">括弧書き削除機能 - テストデモ</h1>
+        
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">機能説明</h2>
+            <p class="text-gray-600 mb-4">
+                この機能は、AI Agent Service からの応答に含まれる括弧書き（【】や（））を音声合成時に自動的に削除します。
+                チャットUIでは括弧書きを含む完全な情報を表示し、音声では簡潔な読み上げを実現します。
+            </p>
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-4 mb-4">
+                <p class="text-sm text-blue-700">
+                    <strong>削除対象:</strong> 全角角括弧【】、全角丸括弧（）、半角角括弧[]、半角丸括弧()
+                </p>
+            </div>
+        </div>
+
+        <!-- カスタムテスト -->
+        <div class="bg-white rounded-lg shadow-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold mb-4 text-gray-700">カスタムテスト</h2>
+            <div class="mb-4">
+                <label class="block text-sm font-medium text-gray-700 mb-2">テキストを入力してください:</label>
+                <textarea id="customInput" 
+                          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                          rows="3"
+                          placeholder="例: この情報は【参考文献】に記載されています（補足説明）。"></textarea>
+            </div>
+            <button id="testButton" 
+                    class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                テスト実行
+            </button>
+            <div id="customResult" class="mt-4 hidden">
+                <div class="bg-gray-50 border border-gray-200 rounded-md p-4">
+                    <h3 class="font-semibold mb-2 text-gray-700">元のテキスト（UIに表示）:</h3>
+                    <p id="originalText" class="mb-4 p-3 bg-white rounded border"></p>
+                    
+                    <h3 class="font-semibold mb-2 text-gray-700">音声合成用テキスト（括弧削除後）:</h3>
+                    <p id="cleanedText" class="p-3 bg-green-50 rounded border border-green-200"></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 自動テストケース -->
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold text-gray-700">自動テストケース</h2>
+                <button id="runAllTests" 
+                        class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    すべてのテストを実行
+                </button>
+            </div>
+            <div id="testResults" class="space-y-3">
+                <!-- テスト結果がここに表示されます -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 括弧書き削除関数（実装コードと同じ）
+        function removeBracketedText(text) {
+            if (!text) return '';
+            
+            console.log('Removing bracketed text from:', text);
+            
+            // すべての種類の括弧を一度に削除（全角・半角の角括弧と丸括弧）
+            // 【】（）[] () を削除
+            let cleanedText = text.replace(/【[^】]*】|（[^）]*）|\[[^\]]*\]|\([^)]*\)/g, '');
+            
+            // 連続する空白を1つの空白に置換
+            cleanedText = cleanedText.replace(/\s+/g, ' ').trim();
+            
+            console.log('Text after removing brackets:', cleanedText);
+            
+            return cleanedText;
+        }
+
+        // テストケースの定義
+        const testCases = [
+            {
+                name: 'テスト1: 全角角括弧の削除',
+                input: '参考資料は【4:1†FY26 EPS Asia Tech Team Strategy Memo.pdf】にあります。',
+                expected: '参考資料はにあります。'
+            },
+            {
+                name: 'テスト2: 全角丸括弧の削除',
+                input: '開発センター（ソフトウェア・デベロップメント・センター）で作業しています。',
+                expected: '開発センターで作業しています。'
+            },
+            {
+                name: 'テスト3: 両方の括弧の削除',
+                input: 'これは【資料名】を使った説明（補足情報）です。',
+                expected: 'これはを使った説明です。'
+            },
+            {
+                name: 'テスト4: 括弧なしテキスト',
+                input: '普通のテキストです。',
+                expected: '普通のテキストです。'
+            },
+            {
+                name: 'テスト5: 半角括弧の削除',
+                input: 'This is [English text] and (more info) here.',
+                expected: 'This is and here.'
+            },
+            {
+                name: 'テスト6: 複数の括弧',
+                input: 'AAA【111】BBB（222）CCC【333】DDD',
+                expected: 'AAABBBCCCDDD'
+            },
+            {
+                name: 'テスト7: 実際の使用例',
+                input: 'プロジェクトは【Project Alpha】として開始され、現在は第2フェーズ（実装フェーズ）に入っています。詳細は[資料参照]してください。',
+                expected: 'プロジェクトはとして開始され、現在は第2フェーズに入っています。詳細はしてください。'
+            }
+        ];
+
+        // 単一テストの実行
+        function runTest(testCase) {
+            const result = removeBracketedText(testCase.input);
+            const passed = result === testCase.expected;
+            return { ...testCase, result, passed };
+        }
+
+        // テスト結果の表示
+        function displayTestResult(testResult) {
+            const resultDiv = document.createElement('div');
+            resultDiv.className = `test-result p-4 border rounded-md ${testResult.passed ? 'pass' : 'fail'}`;
+            
+            resultDiv.innerHTML = `
+                <div class="flex items-start">
+                    <div class="flex-shrink-0">
+                        ${testResult.passed 
+                            ? '<svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>'
+                            : '<svg class="h-6 w-6 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>'
+                        }
+                    </div>
+                    <div class="ml-3 flex-1">
+                        <h3 class="font-semibold ${testResult.passed ? 'text-green-800' : 'text-red-800'}">
+                            ${testResult.name}
+                        </h3>
+                        <div class="mt-2 text-sm">
+                            <p class="mb-1"><strong>入力:</strong> "${testResult.input}"</p>
+                            <p class="mb-1"><strong>期待値:</strong> "${testResult.expected}"</p>
+                            <p class="mb-1"><strong>実際の値:</strong> "${testResult.result}"</p>
+                            <p class="mt-2 font-semibold ${testResult.passed ? 'text-green-700' : 'text-red-700'}">
+                                ${testResult.passed ? '✓ テスト合格' : '✗ テスト失敗'}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            return resultDiv;
+        }
+
+        // すべてのテストを実行
+        function runAllTests() {
+            const testResultsDiv = document.getElementById('testResults');
+            testResultsDiv.innerHTML = '';
+            
+            let passCount = 0;
+            let failCount = 0;
+            
+            testCases.forEach(testCase => {
+                const testResult = runTest(testCase);
+                if (testResult.passed) {
+                    passCount++;
+                } else {
+                    failCount++;
+                }
+                testResultsDiv.appendChild(displayTestResult(testResult));
+            });
+            
+            // サマリーを追加
+            const summary = document.createElement('div');
+            summary.className = 'mt-4 p-4 bg-blue-50 border-l-4 border-blue-500 rounded';
+            summary.innerHTML = `
+                <p class="font-semibold text-blue-800">テスト結果サマリー</p>
+                <p class="text-blue-700">合格: ${passCount} / ${testCases.length}</p>
+                <p class="text-blue-700">失敗: ${failCount} / ${testCases.length}</p>
+            `;
+            testResultsDiv.appendChild(summary);
+        }
+
+        // カスタムテストの実行
+        document.getElementById('testButton').addEventListener('click', () => {
+            const input = document.getElementById('customInput').value;
+            if (!input) {
+                alert('テキストを入力してください');
+                return;
+            }
+            
+            const result = removeBracketedText(input);
+            
+            document.getElementById('originalText').textContent = input;
+            document.getElementById('cleanedText').textContent = result;
+            document.getElementById('customResult').classList.remove('hidden');
+        });
+
+        // すべてのテストを実行ボタン
+        document.getElementById('runAllTests').addEventListener('click', runAllTests);
+
+        // ページロード時に自動実行
+        window.addEventListener('DOMContentLoaded', () => {
+            console.log('テストページが読み込まれました');
+            runAllTests();
+        });
+    </script>
+</body>
+</html>
