@@ -418,15 +418,9 @@ function removeBracketedText(text) {
     
     console.log('Removing bracketed text from:', text);
     
-    // 【】の中身を削除（全角角括弧）
-    let cleanedText = text.replace(/【[^】]*】/g, '');
-    
-    // （）の中身を削除（全角丸括弧）
-    cleanedText = cleanedText.replace(/（[^）]*）/g, '');
-    
-    // 半角括弧も念のため削除
-    cleanedText = cleanedText.replace(/\[[^\]]*\]/g, '');
-    cleanedText = cleanedText.replace(/\([^)]*\)/g, '');
+    // すべての種類の括弧を一度に削除（全角・半角の角括弧と丸括弧）
+    // 【】（）[] () を削除
+    let cleanedText = text.replace(/【[^】]*】|（[^）]*）|\[[^\]]*\]|\([^)]*\)/g, '');
     
     // 連続する空白を1つの空白に置換
     cleanedText = cleanedText.replace(/\s+/g, ' ').trim();
