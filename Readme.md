@@ -111,8 +111,20 @@ When the application opens, you'll see a configuration panel. Enter your Azure s
 3. **Personal Voice Speaker Profile ID**
 4. **Language** (e.g., `en-US`, `ja-JP`)
 5. **AI Foundry Project Endpoint**
-6. **Entra ID Token**
-7. **Agent ID**
+6. **Entra ID Token** 
+8. **Agent ID**
+
+##### How to take Entra ID Token
+
+For tenants where SSO using Entra ID is prohibited, we are using a method to manually obtain tokens via Azure CLI. Please enter the following commands in order and use the displayed bearer token.
+
+```powershell
+az login --tenant <yourtenant>.onmicrosoft.com
+```
+
+```powershell
+az account get-access-token --scope https://ai.azure.com/.default | ConvertFrom-Json | Select-Object -ExpandProperty accessToken
+```
 
 #### 4. Test Connection
 
